@@ -10,22 +10,32 @@ class Products {
 
   createCard(data) {
     const cardEle = document.createElement("div");
-    const img = document.createElement("img");
-    img.src = data.image;
-    img.alt = data.alt;
-    cardEle.appendChild(img);
+
+    const imgEle = this.productImg(data);
+    const infoEle = this.productInfo(data);
+
+    cardEle.innerHTML = imgEle;
+    cardEle.innerHTML = infoEle;
+
     this.parent.appendChild(cardEle);
-    const info = document.createElement("div");
-    const productName = document.createElement("h3");
-    const control = document.createElement("div");
-    const price = document.createElement("span");
-    const button = document.createElement("button");
-    productName.innerText = data.name;
-    price.innerText = data.price;
-    button.innerText = "+";
-    control.append(price, button);
-    info.append(productName, control);
-    cardEle.appendChild(info);
+  }
+
+  productImg(data) {
+    const { image, alt } = data;
+    const imgJsx = `<img src=${image} alt=${alt}/>`;
+    return imgJsx;
+  }
+
+  productInfo(data) {
+    const { id, name, price } = data;
+    const infoJsx = `<div>
+    <h3>${name}</h3>
+    <div>
+    <span>${price}</span>
+    <button data-id=${id}>+</button>
+    </div>
+    </div>`;
+    return infoJsx;
   }
 }
 
