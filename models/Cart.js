@@ -1,40 +1,11 @@
-class Cart {
-  constructor(parent, price, cart) {
-    this.parent = parent;
+import Display from "./Display.js";
+
+class Cart extends Display {
+  constructor(parent, price) {
+    super(parent);
     this.price = price;
-    this.cart = cart;
     this.products = [];
     this.toShow = [];
-    this.parent.addEventListener("click", this);
-  }
-
-  showProducts() {
-    this.toShow = [...new Set(this.products)];
-    this.parent.innerHTML = "";
-    this.toShow.forEach((product) => {
-      const qty = this.products.filter((p) => p.id === product.id).length;
-      this.createCard(product, qty);
-    });
-    this.calculateTotalPrice();
-  }
-
-  createCard(data, qty) {
-    const cardEle = document.createElement("div");
-    const imgEle = this.productImage(data);
-    const infoEle = this.productInfo(data);
-    const controlEle = this.productControl(data, qty);
-
-    cardEle.innerHTML = imgEle;
-    cardEle.innerHTML += infoEle;
-    cardEle.innerHTML += controlEle;
-
-    this.parent.appendChild(cardEle);
-  }
-
-  productImage(data) {
-    const { image, alt } = data;
-    const imgJsx = `<img src=${image} alt=${alt}/>`;
-    return imgJsx;
   }
 
   productInfo(data) {
@@ -104,7 +75,7 @@ class Cart {
 
   calculateTotalPrice() {
     const total = this.products.reduce((acc, cur) => (acc += cur.price), 0);
-    this.price = innerText = "$" + total;
+    this.price.innerText = "$" + total;
   }
 }
 
